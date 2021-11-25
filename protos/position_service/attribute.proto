@@ -1,0 +1,30 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/position_service";
+
+message Attribute {
+    string id = 1;
+    string name = 2;
+    string type = 3;
+}
+
+message CreateAttributeRequest {
+    string name = 1;
+    string type = 2;
+}
+
+message AttributeId {
+    string id = 1;
+}
+
+message GetAllAttributeResponse {
+    repeated Attribute attributes = 1;
+    int32 count = 2;
+}
+
+message GetAllAttributeRequest {
+    int32 limit_ = 1;
+    int32 offset_ = 2;
+    string search = 3;
+}

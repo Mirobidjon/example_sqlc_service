@@ -1,0 +1,52 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/position_service";
+
+
+message PositionAttribute {
+    string attribute_id = 1;
+    string value = 2;
+}
+
+message CreatePositionRequest {
+    string name = 1;
+    string profession_id = 2;
+    repeated PositionAttribute position_attributes = 3;
+}
+
+message PositionId {
+    string id = 1;
+}
+
+message Position {
+    string id = 1;
+    string name = 2;
+    string profession_id = 3;
+    repeated GetPositionAttribute position_attributes = 4;
+}
+
+message GetPositionAttribute {
+    string id = 1;
+    string attribute_id = 2;
+    string value = 3;
+    string attribute_name = 4;
+    string attribute_type = 5;
+    string position_id = 6;
+}
+
+message PositionAttributes {
+    repeated GetPositionAttribute position_attributes = 1;
+}
+
+message GetAllPositionRequest {
+    int32 offset_ = 1;
+    int32 limit_  = 2;
+    string search = 3;
+    string profession_id = 4;
+}
+
+message GetAllPositionResponse {
+    repeated Position positions = 1;
+    int32 count = 2;
+}

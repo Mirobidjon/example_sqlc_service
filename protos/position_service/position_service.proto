@@ -1,0 +1,15 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/position_service";
+
+import "position.proto";
+import "google/protobuf/empty.proto";
+
+service PositionService {
+    rpc Create(CreatePositionRequest) returns (PositionId) {}
+    rpc Get(PositionId) returns (Position) {}
+    rpc Update(Position) returns (PositionId) {}
+    rpc GetAll(GetAllPositionRequest) returns (GetAllPositionResponse) {}
+    rpc Delete(PositionId) returns (google.protobuf.Empty) {}
+}

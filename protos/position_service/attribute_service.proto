@@ -1,0 +1,15 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/position_service";
+
+import "attribute.proto";
+import "google/protobuf/empty.proto";
+
+service AttributeService {
+    rpc Create(CreateAttributeRequest) returns (AttributeId) {}
+    rpc Get(AttributeId) returns (Attribute) {}
+    rpc GetAll(GetAllAttributeRequest) returns (GetAllAttributeResponse) {}
+    rpc Update(Attribute) returns (AttributeId) {}
+    rpc Delete(AttributeId) returns (google.protobuf.Empty) {}
+}

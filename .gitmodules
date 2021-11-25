@@ -1,0 +1,3 @@
+[submodule "ur_protos"]
+	path = ur_protos
+	url = git@gitlab.udevs.io:urecruit/ur_protos.git

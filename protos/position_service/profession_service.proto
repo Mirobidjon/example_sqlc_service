@@ -1,0 +1,15 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/position_service";
+
+import "profession.proto";
+import "google/protobuf/empty.proto";
+
+service ProfessionService {
+    rpc Create(CreateProfessionRequest) returns (ProfessionId) {}
+    rpc GetAll(GetAllProfessionRequest) returns (GetAllProfessionResponse) {}
+    rpc Get(ProfessionId) returns (Profession) {}
+    rpc Update(Profession) returns (ProfessionId) {}
+    rpc Delete(ProfessionId) returns (google.protobuf.Empty) {}
+}

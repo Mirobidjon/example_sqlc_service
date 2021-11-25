@@ -1,0 +1,28 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/position_service";
+
+message Profession {
+    string id = 1;
+    string name = 2;
+}
+
+message CreateProfessionRequest {
+    string name = 1;
+}
+
+message ProfessionId {
+    string id = 1;
+}
+
+message GetAllProfessionRequest {
+    int32 offset_ = 1;
+    int32 limit_ = 2;
+    string search = 3;
+}
+
+message GetAllProfessionResponse {
+    repeated Profession professions = 1;
+    int32 count = 2;
+}
