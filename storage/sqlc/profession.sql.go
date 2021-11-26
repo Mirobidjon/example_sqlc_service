@@ -10,19 +10,21 @@ import (
 const createProfession = `-- name: CreateProfession :one
 INSERT INTO profession(
         id, 
-        name
+        name,
+        description
     )
-VALUES ($1, $2)
+VALUES ($1, $2, $3)
 RETURNING id
 `
 
 type CreateProfessionParams struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description *string `json:"description"`
 }
 
 func (q *Queries) CreateProfession(ctx context.Context, arg CreateProfessionParams) (string, error) {
-	row := q.db.QueryRowContext(ctx, createProfession, arg.ID, arg.Name)
+	row := q.db.QueryRowContext(ctx, createProfession, arg.ID, arg.Name, arg.Description)
 	var id string
 	err := row.Scan(&id)
 	return id, err
@@ -40,7 +42,7 @@ func (q *Queries) DeleteProfession(ctx context.Context, id string) error {
 }
 
 const getProfession = `-- name: GetProfession :one
-SELECT id, name
+SELECT id, name, description
 FROM profession
 WHERE id = $1
 `
@@ -48,14 +50,15 @@ WHERE id = $1
 func (q *Queries) GetProfession(ctx context.Context, id string) (Profession, error) {
 	row := q.db.QueryRowContext(ctx, getProfession, id)
 	var i Profession
-	err := row.Scan(&i.ID, &i.Name)
+	err := row.Scan(&i.ID, &i.Name, &i.Description)
 	return i, err
 }
 
 const getProfessions = `-- name: GetProfessions :many
 SELECT 
     id,
-    name
+    name,
+    description
 FROM profession
 WHERE name ilike '%' || $1::varchar || '%' 
 offset $2::integer limit $3::integer
@@ -76,7 +79,7 @@ func (q *Queries) GetProfessions(ctx context.Context, arg GetProfessionsParams) 
 	var items []Profession
 	for rows.Next() {
 		var i Profession
-		if err := rows.Scan(&i.ID, &i.Name); err != nil {
+		if err := rows.Scan(&i.ID, &i.Name, &i.Description); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -105,16 +108,18 @@ func (q *Queries) GetProfessionsCount(ctx context.Context, search string) (int64
 
 const updateProfession = `-- name: UpdateProfession :exec
 UPDATE profession
-SET name = $1
-WHERE id = $2
+SET name = $1,
+    description = $2
+WHERE id = $3
 `
 
 type UpdateProfessionParams struct {
-	Name string `json:"name"`
-	ID   string `json:"id"`
+	Name        string  `json:"name"`
+	Description *string `json:"description"`
+	ID          string  `json:"id"`
 }
 
 func (q *Queries) UpdateProfession(ctx context.Context, arg UpdateProfessionParams) error {
-	_, err := q.db.ExecContext(ctx, updateProfession, arg.Name, arg.ID)
+	_, err := q.db.ExecContext(ctx, updateProfession, arg.Name, arg.Description, arg.ID)
 	return err
 }

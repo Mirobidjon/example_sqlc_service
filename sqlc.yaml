@@ -12,7 +12,7 @@ overrides:
   - go_type: "string"
     db_type: "uuid"
   - nullable: true
-    column: "position.company_id"
+    column: "profession.description"
     go_type: 
       type: "string"
       pointer: true

@@ -110,7 +110,10 @@ func (s *positionService) GetAll(ctx context.Context, req *position_service.GetA
 		return nil, helper.HandleError(s.logger, err, "error while getting all position", req, codes.Internal)
 	}
 
-	count, err := s.db.GetPositionsCount(ctx, params.Search)
+	count, err := s.db.GetPositionsCount(ctx, sqlc.GetPositionsCountParams{
+		Search:       params.Search,
+		ProfessionID: params.ProfessionID,
+	})
 	if err != nil {
 		return nil, helper.HandleError(s.logger, err, "error while getting all position count", req, codes.Internal)
 	}

@@ -1,9 +1,10 @@
 -- name: CreateProfession :one
 INSERT INTO profession(
         id, 
-        name
+        name,
+        description
     )
-VALUES ($1, $2)
+VALUES ($1, $2, $3)
 RETURNING id;
 
 -- name: GetProfession :one
@@ -14,7 +15,8 @@ WHERE id = $1;
 -- name: GetProfessions :many
 SELECT 
     id,
-    name
+    name,
+    description
 FROM profession
 WHERE name ilike '%' || @search::varchar || '%' 
 offset @offset_::integer limit @limit_::integer;
@@ -26,8 +28,9 @@ WHERE name ilike '%' || @search::varchar || '%' ;
 
 -- name: UpdateProfession :exec
 UPDATE profession
-SET name = $1
-WHERE id = $2;
+SET name = $1,
+    description = $2
+WHERE id = $3;
 
 -- name: DeleteProfession :exec
 DELETE

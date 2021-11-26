@@ -3,13 +3,17 @@ syntax="proto3";
 package genproto;
 option go_package="genproto/position_service";
 
+import "google/protobuf/wrappers.proto";
+
 message Profession {
     string id = 1;
     string name = 2;
+    google.protobuf.StringValue description = 3;
 }
 
 message CreateProfessionRequest {
     string name = 1;
+    google.protobuf.StringValue description = 2;
 }
 
 message ProfessionId {

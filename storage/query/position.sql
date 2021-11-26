@@ -15,13 +15,16 @@ WHERE id = $1;
 -- name: GetPositions :many
 SELECT *
 FROM position
-WHERE name ilike '%' || @search::varchar || '%'
+WHERE name ilike '%' || @search::varchar || '%' AND 
+CASE  WHEN @profession_id::varchar = '' THEN true ELSE profession_id = @profession_id::varchar END
 offset @offset_ limit @limit_;
 
 -- name: GetPositionsCount :one
 SELECT count(1)
 FROM position
-WHERE name ilike '%' || @search::varchar || '%';
+WHERE name ilike '%' || @search::varchar || '%' AND 
+CASE  WHEN @profession_id::varchar = '' THEN true ELSE profession_id = @profession_id::varchar END
+;
 
 -- name: UpdatePosition :exec
 UPDATE position

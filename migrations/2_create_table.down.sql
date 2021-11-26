@@ -1,4 +1,2 @@
-ALTER TABLE position
-    DROP COLUMN company_id;
-
-DROP TABLE company;
+ALTER TABLE profession
+    DROP COLUMN description;

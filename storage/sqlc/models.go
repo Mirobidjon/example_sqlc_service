@@ -32,16 +32,10 @@ type Attribute struct {
 	Type AttributeTypes `json:"type"`
 }
 
-type Company struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
-}
-
 type Position struct {
-	ID           string  `json:"id"`
-	Name         string  `json:"name"`
-	ProfessionID string  `json:"profession_id"`
-	CompanyID    *string `json:"company_id"`
+	ID           string `json:"id"`
+	Name         string `json:"name"`
+	ProfessionID string `json:"profession_id"`
 }
 
 type PositionAttribute struct {
@@ -52,6 +46,7 @@ type PositionAttribute struct {
 }
 
 type Profession struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description *string `json:"description"`
 }

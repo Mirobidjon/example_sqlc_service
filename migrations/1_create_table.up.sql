@@ -40,3 +40,8 @@ ALTER TABLE "position_attributes"
 
 ALTER TABLE "position_attributes"
     ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id");
+
+
+CREATE CAST (varchar AS uuid)
+  WITH INOUT
+  AS IMPLICIT;
